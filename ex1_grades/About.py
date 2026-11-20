@@ -5,7 +5,7 @@ class About(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle('About Me')
-        self.setGeometry(100, 100, 340, 450) 
+        self.setGeometry(100, 100, 340, 490) 
 
         self.my_name = QLabel('Ori Trifman', self)
         self.my_name.setGeometry(20, 20, 300, 30)
@@ -22,6 +22,10 @@ class About(QWidget):
         self.my_linkedin = QLabel('<a href="https://www.linkedin.com/in/ori-trifman-7333b2233">My LinkedIn Profile</a>', self)
         self.my_linkedin.setGeometry(20, 400, 300, 30)
         self.my_linkedin.setOpenExternalLinks(True) 
+
+        self.my_github = QLabel('<a href="https://github.com/oritrifman/execise-4">My GitHub Repository</a>', self)
+        self.my_github.setGeometry(20, 430, 300, 30)
+        self.my_github.setOpenExternalLinks(True)      
 
 if __name__ == '__main__':
     app = QApplication()
