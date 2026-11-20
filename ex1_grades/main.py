@@ -87,8 +87,10 @@ class GradesWindow(QWidget):
     def load_clicked(self):
         # the dialog returns the chosen path (and the filter, which we don't need)
         file_name, _ = QFileDialog.getOpenFileName(self, "Select students file", "", "CSV Files (*.csv)")
-        if file_name == '':                         # the user closed the dialog without choosing
+        if file_name ==  '':                                # the user closed the dialog without choosing
             return
+        self.selected_file = file_name
+        print(self.selected_file)
 
         # TODO (your code):
         # 1. save file_name in self.selected_file
