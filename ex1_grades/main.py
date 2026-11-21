@@ -103,19 +103,20 @@ class GradesWindow(QWidget):
         self.update_table()
 
 
-
     def bonus_entered(self):
-        bonus = self.bonus_spin.value()             # the number in the spin box
+        bonus = self.bonus_spin.value() 
+        for i in range(len(self.corrected_grades)):
+            self.corrected_grades[i] = min(self.original_grades[i]+bonus,100)
+        self.update_table()
 
-        # TODO (your code):
-        # run over the two grade lists. Corrected grade = original grade + bonus, but not more than 100.
-        # then call self.update_table()
 
     def update_clicked(self):
-        # TODO (your code):
-        # 1. overwrite self.selected_file: keep the original header line, write ID and corrected grade per line
-        # 2. then call self.open_file(self.selected_file)
-        pass
+        with open(self.selected_file,'w') as f:
+            f.write('ID,Grade\n')
+            for i in range (len(self.student_ids)):
+                f.write(str(self.student_ids[i]) + ',' + str(self.corrected_grades[i]) + '\n')
+        self.open_file(self.selected_file)
+
 
     def about_clicked(self):
         self.about_window.show()
