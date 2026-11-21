@@ -51,6 +51,9 @@ class GradesWindow(QWidget):
         # 50 rows, 3 columns, with the required column titles
         self.table = QTableWidget(50, 3)
         self.table.setHorizontalHeaderLabels(["ID", "Original Grades", "Corrected Grades"])
+        self.table.setColumnWidth(0, 140)
+        self.table.setColumnWidth(1, 150)
+        self.table.setColumnWidth(2, 150)
 
         # step 2: layouts. a row = QHBoxLayout, the rows go one under the other in a QVBoxLayout
         buttons_layout = QHBoxLayout()
@@ -90,15 +93,16 @@ class GradesWindow(QWidget):
         if file_name ==  '':                                # the user closed the dialog without choosing
             return
         self.selected_file = file_name
-        print(self.selected_file)
+        with open(file_name, 'r') as f:
+            next(f)
+            for line in f:
+                i_d, grade = line.strip().split(',')
+                self.student_ids.append(i_d)
+                self.original_grades.append(int(grade))
+                self.corrected_grades.append(int(grade))
+        self.update_table()
 
-        # TODO (your code):
-        # 1. save file_name in self.selected_file
-        # 2. open the file for reading, skip the header line
-        # 3. for every line: append the ID to self.student_ids and the grade to self.original_grades
-        #    and the same grade to self.corrected_grades
-        #    (tip: keep the ID as a string - a number would lose the leading zero)
-        # 4. call self.update_table()
+
 
     def bonus_entered(self):
         bonus = self.bonus_spin.value()             # the number in the spin box
