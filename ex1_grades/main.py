@@ -92,6 +92,9 @@ class GradesWindow(QWidget):
         file_name, _ = QFileDialog.getOpenFileName(self, "Select students file", "", "CSV Files (*.csv)")
         if file_name ==  '':                                # the user closed the dialog without choosing
             return
+        self.student_ids = []
+        self.original_grades = []
+        self.corrected_grades = []        
         self.selected_file = file_name
         with open(file_name, 'r') as f:
             next(f)
@@ -102,21 +105,20 @@ class GradesWindow(QWidget):
                 self.corrected_grades.append(int(grade))
         self.update_table()
 
-
     def bonus_entered(self):
-        bonus = self.bonus_spin.value() 
+        bonus = self.bonus_spin.value()
         for i in range(len(self.corrected_grades)):
             self.corrected_grades[i] = min(self.original_grades[i]+bonus,100)
         self.update_table()
 
-
     def update_clicked(self):
+        if self.selected_file == '':
+            return        
         with open(self.selected_file,'w') as f:
             f.write('ID,Grade\n')
             for i in range (len(self.student_ids)):
                 f.write(str(self.student_ids[i]) + ',' + str(self.corrected_grades[i]) + '\n')
         self.open_file(self.selected_file)
-
 
     def about_clicked(self):
         self.about_window.show()
