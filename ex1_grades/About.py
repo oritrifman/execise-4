@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QApplication, QWidget, QLabel
+from PySide6.QtWidgets import QWidget, QLabel
 from PySide6.QtGui import QPixmap
 
 class About(QWidget):
@@ -26,9 +26,3 @@ class About(QWidget):
         self.my_github = QLabel('<a href="https://github.com/oritrifman/execise-4">My GitHub Repository</a>', self)
         self.my_github.setGeometry(20, 430, 300, 30)
         self.my_github.setOpenExternalLinks(True)      
-
-if __name__ == '__main__':
-    app = QApplication()
-    window = About()
-    window.show()
-    app.exec()
